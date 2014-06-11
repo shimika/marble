@@ -13,9 +13,10 @@ using namespace std;
 #define HEIGHT 7
 #define MAPSIZE 28
 
-#define MONEYLOOP 40000
-#define MONEY 150000
-#define MAXCREDIT 15
+#define MONEYLOOP 60000
+#define MONEY 120000
+#define MAXCREDIT 120
+#define MAXLOOP 12
 
 #define BRONZE 6
 #define MSGCOLOR 7

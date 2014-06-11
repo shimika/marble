@@ -162,7 +162,7 @@ void movehorse(int pl, int num) {
 	if (playerstatus[pl] < xi) {
 		player[pl].loop++;
 		if (pl == 0) {
-			player[pl].money += MONEYLOOP * nPlayer;
+			player[pl].money += MONEYLOOP * 2;
 		}
 		else {
 			player[pl].money += MONEYLOOP;
@@ -171,7 +171,7 @@ void movehorse(int pl, int num) {
 
 		char msg[59];
 		if (pl == 0) {
-			sprintf(msg, "월급 %d원을 받았습니다.", MONEYLOOP * nPlayer);
+			sprintf(msg, "월급 %d원을 받았습니다.", MONEYLOOP * 2);
 		}
 		else {
 			sprintf(msg, "용돈 %d원을 받았습니다.", MONEYLOOP);
@@ -726,8 +726,9 @@ void play() {
 			refreshmessage(msg, PINK);
 			getchmacro(10);
 		}
-		if (i == 0 && player[i].loop >= 30) {
-			refreshmessage("교수님이 30바퀴를 돌파하여 게임을 종료합니다.");
+		if (i == 0 && player[i].loop >= MAXLOOP) {
+			sprintf(msg, "교수님이 %d바퀴를 돌파하여 게임을 종료합니다.", MAXLOOP);
+			refreshmessage(msg);
 			getchmacro(10);
 			break;
 		}

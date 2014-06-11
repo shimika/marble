@@ -13,9 +13,6 @@ int main() {
 	selectrandom();
 	printgamescreen();
 
-	resultscreen();
-	return 0;
-
 	play();
 
 	resultscreen();
