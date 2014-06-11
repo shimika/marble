@@ -14,20 +14,6 @@ char scoreFull[8][3] = { "A+", "A", "B+", "B", "C+", "C", "D", "F" };
 double scoreN[8] = { 4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.0, 0 };
 int cost[8] = { 80000, 50000, 30000, 20000, 20000, 20000, 20000, 20000 };
 
-void printnumber(char *num) {
-	int line = 0, len = strlen(num), i;
-	gotoxy(WIDTH * 6 - 2, HEIGHT * 2);
-
-	for (i = 0; i < len; i++) {
-		if (num[i] == 10) {
-			line++;
-			gotoxy(WIDTH * 6 - 2, HEIGHT * 2 + line);
-		}
-		else {
-			printf("%c", num[i]);
-		}
-	}
-}
 
 string numbers[7] = {
 	"",
@@ -39,6 +25,8 @@ string numbers[7] = {
 	"  #######  ##     ## ##        ########  ##     ## ##     ##  ####### ",
 };
 
+// 주사위 숫자를 출력하는 함수
+// num = 출력할 숫자
 void printnumber(int num) {
 	int i, j;
 	static char numchar[7][72];
@@ -65,6 +53,8 @@ void printnumber(int num) {
 	}
 }
 
+// 유저 정보 부분을 클리어하는 함수 
+// start = 시작할 세로 라인
 void clearuserarea(int start = 1) {
 	int i, j;
 	char blank[44] = " ";
@@ -77,6 +67,8 @@ void clearuserarea(int start = 1) {
 	}
 }
 
+// 스코어 부분을 갱신하는 함수 
+// pl = 현재 플레이어
 void refreshscore(int pl) {
 	int i, j;
 	for (i = 0; i < nPlayer - 1; i++) {
@@ -105,6 +97,8 @@ void refreshscore(int pl) {
 	}
 }
 
+// 메세지 부분을 갱신하는 함수 
+// msg = 메세지 내용, issub = true이면 위, false이면 아래, col = 텍스트 색
 void refreshmessage(char *msg, bool issub = false, int col = MSGCOLOR) {
 	settextcolor(col);
 	clearuserarea(HEIGHT * 5 - (issub ? 2 : 0) - 1);
@@ -113,6 +107,8 @@ void refreshmessage(char *msg, bool issub = false, int col = MSGCOLOR) {
 	settextcolor(15);
 }
 
+// 지정한 입력이 들어올 때까지 입력을 받는 함수 
+// exception = 지정할 문자
 void getchmacro(int exception = 0) {
 	char in1;
 	for (;;) {
@@ -130,6 +126,8 @@ void getchmacro(int exception = 0) {
 	}
 }
 
+// 말을 움직이는 함수
+// pl = 플레이어, num = 움직일 횟수
 void movehorse(int pl, int num) {
 	settextcolor(color[pl]);
 
@@ -183,6 +181,8 @@ void movehorse(int pl, int num) {
 	FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 }
 
+// 상자에 대해 학점 표시를 변경하는 함수
+// xi = 맵 아이디, make = 갱신할 학점
 void refreshmapstatus(int xi, int make) {
 	gotoxy(idmap[xi].second * 12 - 9, idmap[xi].first * 5 - 2);
 	settextcolor(PINK);
@@ -206,8 +206,11 @@ void refreshmapstatus(int xi, int make) {
 	settextcolor(WHITE);
 }
 
-int moveoptioncursor(vector<string> v, int selectcount) {
-	int select = 0, i;
+// 옵션을 부여하고, 선택지를 반환하는 함수
+// v = 메세지 내용이 담긴 스트링 벡터
+// selectcount = 옵션의 갯수
+int moveoptioncursor(vector<string> v) {
+	int select = 0, i, selectcount = v.size();
 	char key;
 
 	for (i = 0; i < v.size(); i++) {
@@ -270,6 +273,9 @@ char goldmsg[21][64] = {
 	"꽝!",
 };
 
+
+// 황금 열쇠를 까는 함수
+// pl = 플레이어 아이디
 void goldenkey(int pl) {
 	int value = rand() % (goldcnt * 2);
 	char a[99];
@@ -342,6 +348,8 @@ void goldenkey(int pl) {
 	refreshmessage(goldmsg[value], true, CYAN);
 }
 
+// 각 플레이어에 대한 선택과 진행을 하는 코어 함수
+// pl = 플레이어 아이디
 void selectaction(int pl) {
 	refreshmessage("");
 
@@ -412,7 +420,7 @@ void selectaction(int pl) {
 						}
 					}
 
-					value = moveoptioncursor(vc, option);
+					value = moveoptioncursor(vc);
 					
 					if (value > 0) {
 						switch (option) {
@@ -443,7 +451,7 @@ void selectaction(int pl) {
 						sprintf(msg, "드랍하기 (%d번 남음)", player[pl].passcount);
 						vc.push_back(msg);
 
-						option = moveoptioncursor(vc, 2);
+						option = moveoptioncursor(vc);
 					}
 
 					if (option == 0) {
@@ -487,7 +495,7 @@ void selectaction(int pl) {
 					vc.push_back("강의 듣기 (B ~ F 랜덤, 2만원 소비)");
 					vc.push_back("듣지 않는다");
 
-					option = moveoptioncursor(vc, 2);
+					option = moveoptioncursor(vc);
 
 					if (option == 0) {
 						int randscore = rand() % 11;
@@ -575,7 +583,6 @@ void selectaction(int pl) {
 		case 5:
 			// 특별]
 
-			option = 1;
 			if (pl == 0) {
 				sprintf(msg, "연구 지원비 (+2~10만원)");
 				vc.push_back(msg);
@@ -587,10 +594,9 @@ void selectaction(int pl) {
 
 			if (pl == 0 || player[pl].money >= 0) {
 				vc.push_back("황금 열쇠 (가칭)");
-				option++;
 			}
 
-			option = moveoptioncursor(vc, option);
+			option = moveoptioncursor(vc);
 
 			if (option == 0) {
 				option = rand() % 5 + 1;
@@ -645,6 +651,8 @@ void selectaction(int pl) {
 	}
 }
 
+// 각 플레이어에 대해서 진행을 준비하고 반환을 받아 정리하는 함수
+// pl = 플레이어 아이디
 void gameturn(int pl) {
 	char in1, in2;
 	int num = -1, i;
@@ -673,8 +681,6 @@ void gameturn(int pl) {
 	getchmacro(' ');
 
 	num = ((rand() % 9) + 3) % 6 + 1;
-	//num = 1;
-	//printf("(%d)", num);
 	printnumber(num);
 
 	Sleep(500);
@@ -687,6 +693,7 @@ void gameturn(int pl) {
 	getchmacro(10);
 }
 
+// 플레이를 하는  함수
 void play() {
 	int live = nPlayer - 1, i, loop = 0;
 	char msg[99];

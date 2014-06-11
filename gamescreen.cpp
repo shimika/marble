@@ -1,5 +1,7 @@
 #include "function.h"
 
+
+// 각 칸을 그리는 함수, name은 이름
 void drawcell(int yi, int xi, char *name) {
 	printscreen("┌────┐\n│        │\n│        │\n│        │\n└────┘\n", xi * 12 - 9, yi * 5 - 3);
 
@@ -10,9 +12,17 @@ void drawcell(int yi, int xi, char *name) {
 
 	gotoxy(xi * 12 - 5, yi * 5 - 2);
 	printf("%6s", name + 2);
-	//getchar();
 }
 
+/*	맵에 대해서 저장된 배열
+	
+	0	: 특수 지형
+	1~3 : 각각 과목에 대한 학점 수
+	4	: 공강
+	5	: 황금 열쇠 (가칭)
+	6	: 휴식
+	7	: 셔틀
+*/
 char subject[29][12] = { "00", "21사표", "22아잉", "11컴과실", "41공강", "51★", "12물실", "31서철", "61♣",
 						 "38물연",																	"32이수",
 						 "37지리학",																	"51★",
@@ -72,13 +82,11 @@ void printgamescreen() {
 		gotoxy(WIDTH * 13 - 2, i + 1);
 		printf("|");
 	}
-	//gotoxy(WIDTH * 13 + 2, 1);
-	//printf("ASD");
 }
 
 void shuffle() {
 
-	// 미리 개설된 곳, 개설을 하지 못하는 곳 (각 2개씩)
+	// 미리 개설된 곳, 개설을 하지 못하는 곳 (각 3, 2개)
 
 	int shufflecount = rand() % 10 + 10;
 	int t1, t2;

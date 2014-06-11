@@ -4,10 +4,14 @@ using namespace std;
 static int cursorpos;
 
 void movecursor(int direction) {
+	// 선택 커서를 움직이는 함수
+	// Direction < 0 => 화살표를 위로
+	// Direction > 0 => 화살표를 위로
+	// Direction = 0 => 화살표를 그림 (처음에만 호출)
+	
+	// 새로운 커서 위치를 찾음
 	cursorpos = max2(0, cursorpos + direction);
 	cursorpos = min2(3, cursorpos);
-
-	gotoxy(0, 0);
 
 	int i;
 	for (i = 0; i < 4; i++) {
@@ -15,10 +19,12 @@ void movecursor(int direction) {
 		printf("  ");
 	}
 
+	// 커서 그리기
 	gotoxy(8, cursorpos * 2 + 4);
 	printf("▶");
 }
 
+// 타이틀 드로잉 함수
 void printmenu() {
 	int i;
 	char menutitle[5][21] = { "2 players", "3 players", "4 players", "exit", "\'학고\'대의 마블" };
@@ -32,6 +38,7 @@ void printmenu() {
 	printf("%s", menutitle[4]);
 }
 
+// 타이틀을 그리고 선택을 받는 함수
 void mainscreen() {
 	system("mode con cols=50 lines=25");
 	system("cls");
@@ -43,10 +50,6 @@ void mainscreen() {
 	unsigned char key;
 	while (1) {
 		key = getch();
-
-		//for detect the arrow keys 
-		//we must call the getch() again
-		//testing if a is '0' or '0xE0'
 
 		if (key == 0 || key == 0xE0) {
 			key = getch();

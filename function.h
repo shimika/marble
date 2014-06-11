@@ -31,17 +31,18 @@ using namespace std;
 #define WHITE 15
 
 
-extern int nPlayer;
-extern char subject[29][12];
-extern int mapid[8][10];
-extern pair<int, int> idmap[29];
-extern int mapstatus[29];
+extern int nPlayer;					// 플레이어 수
+extern char subject[29][12];		// 과목의 코드와 이름
+extern int mapid[8][10];			// 해당 맵에 대한 코드
+extern pair<int, int> idmap[29];	// 코드에 대한 맵의 위치
+extern int mapstatus[29];			// 그 맵에 부여된 학점의 스테이터스
 
 struct playerinfo {
-	int credit, money, passcount, loop, seminar;
-	double tscore, avgscore;
-	bool isrest, isfree;
-	int id, sorttag;
+	int credit, money, passcount, loop;	// 각각 수강학점, 돈, 드랍권, 루프수
+	int seminar;						// 세미나 (0 = 수강X, 1 = 수강완료, 2 = 대출 (취소될 수 있음))
+	double tscore, avgscore;			// 총 환산 학점, GPA
+	bool isrest;						// 현재 턴에 쉬는지
+	int id, sorttag;					// 아이디와 소트 태그
 };
 
 void setwindowposition();
