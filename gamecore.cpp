@@ -5,6 +5,7 @@ int nPlayer;
 int main() {
 	srand(time(0));
 
+
 	setwindowposition();
 	hidecursor();
 	mainscreen();
@@ -12,9 +13,12 @@ int main() {
 	selectrandom();
 	printgamescreen();
 
-	gotoxy(0, 0);
+	resultscreen();
+	return 0;
 
 	play();
+
+	resultscreen();
 
 	return 0;
 }

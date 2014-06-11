@@ -17,12 +17,16 @@ using namespace std;
 #define MONEY 150000
 #define MAXCREDIT 15
 
+#define BRONZE 6
 #define MSGCOLOR 7
+#define SILVER 7
+#define GRAY 8
 #define GREEN 10
 #define CYAN 11
 #define RED 12
 #define PINK 13
 #define YELLOW 14
+#define GOLD 14
 #define WHITE 15
 
 
@@ -36,6 +40,7 @@ struct playerinfo {
 	int credit, money, passcount, loop, seminar;
 	double tscore, avgscore;
 	bool isrest, isfree;
+	int id, sorttag;
 };
 
 void setwindowposition();
@@ -53,3 +58,5 @@ void printgamescreen();
 void shuffle();
 
 void play();
+
+void resultscreen();

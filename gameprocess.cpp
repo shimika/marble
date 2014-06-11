@@ -90,8 +90,8 @@ void refreshscore(int pl) {
 	for (i = 0; i < nPlayer; i++) {
 		gotoxy(5, HEIGHT * 5 + i * 2 + 3);
 
-		if (playerstatus[i]<0) {
-			settextcolor(8);
+		if (playerstatus[i] < 0) {
+			settextcolor(GRAY);
 		}
 		else if (pl == i) {
 			settextcolor(color[pl]);
@@ -594,15 +594,17 @@ void selectaction(int pl) {
 
 			if (option == 0) {
 				option = rand() % 5 + 1;
-				sprintf(msg, "%d만원을 얻었습니다.", option);
-				refreshmessage(msg, true);
 
 				if (pl == 0) {
+					sprintf(msg, "%d만원을 얻었습니다.", option * 2);
 					player[pl].money += 20000 * option;
 				}
 				else {
+					sprintf(msg, "%d만원을 얻었습니다.", option);
 					player[pl].money += 10000 * option;
 				}
+
+				refreshmessage(msg, true);
 			}
 			else {
 				// Golden key
@@ -686,14 +688,14 @@ void gameturn(int pl) {
 }
 
 void play() {
-	int live = nPlayer - 1, i;
+	int live = nPlayer - 1, i, loop = 0;
 	char msg[99];
 
 	for (i = 0; i < nPlayer; i++) {
 		movehorse(i, 0);
 	}
 
-	for (i = 0; live; i = (i + 1) % nPlayer) {
+	for (i = 0; live; i = (i + 1) % nPlayer, loop++) {
 		if (playerstatus[i] < 0) { continue; }
 
 		if (player[i].isrest) {
@@ -707,15 +709,17 @@ void play() {
 		refreshscore(i);
 		gameturn(i);
 
-		if (((player[i].credit >= MAXCREDIT  && player[i].seminar > 0) || player[i].avgscore <= 1.75) && i > 0) {
+		if (((player[i].credit >= MAXCREDIT  && player[i].seminar >= 0) || player[i].avgscore <= 1.75) && i > 0) {
 			playerstatus[i] *= -1;
 			live--;
 
 			if (player[i].avgscore <= 1.75) {
 				sprintf(msg, "학고를 받았습니다. 축하합니다.");
+				player[i].sorttag = 1000000 + (player[i].avgscore * 100) + loop;
 			}
 			else {
 				sprintf(msg, "졸업하였습니다. 축하합니다. 학점 : %.2lf", player[i].avgscore);
+				player[i].sorttag = 2000000 + (player[i].avgscore * 100) + loop;
 			}
 
 			movehorse(i, 0);
@@ -728,7 +732,4 @@ void play() {
 			break;
 		}
 	}
-
-	system("cls");
-	printf("끝");
 }
