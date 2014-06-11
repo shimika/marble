@@ -114,8 +114,6 @@ void refreshmessage(char *msg, bool issub = false, int col = MSGCOLOR) {
 }
 
 void getchmacro(int exception = 0) {
-	return;
-
 	char in1;
 	for (;;) {
 		in1 = getch();
@@ -136,12 +134,14 @@ void movehorse(int pl, int num) {
 	settextcolor(color[pl]);
 
 	int i, xi = playerstatus[pl];
-	gotoxy(idmap[xi].second * 12 - 7 + pl * 2, idmap[xi].first * 5);
 	if (playerstatus[pl] >= 0) {
+		gotoxy(idmap[xi].second * 12 - 7 + pl * 2, idmap[xi].first * 5);
 		printf("%2d", pl + 1);
 	}
 	else {
+		gotoxy(idmap[-xi].second * 12 - 7 + pl * 2, idmap[-xi].first * 5);
 		printf("  ", pl + 1);
+		return;
 	}
 
 	for (i = 1; i <= num; i++) {
@@ -207,8 +207,6 @@ void refreshmapstatus(int xi, int make) {
 }
 
 int moveoptioncursor(vector<string> v, int selectcount) {
-	Sleep(1000);
-	return 0;
 	int select = 0, i;
 	char key;
 
@@ -709,18 +707,25 @@ void play() {
 		refreshscore(i);
 		gameturn(i);
 
-		if (player[i].credit >= MAXCREDIT 
-			//&& player[i].seminar > 0
-			) {
-			playerstatus[i] = -1;
+		if (((player[i].credit >= MAXCREDIT  && player[i].seminar > 0) || player[i].avgscore <= 1.75) && i > 0) {
+			playerstatus[i] *= -1;
 			live--;
 
-			clearuserarea(3);
+			if (player[i].avgscore <= 1.75) {
+				sprintf(msg, "학고를 받았습니다. 축하합니다.");
+			}
+			else {
+				sprintf(msg, "졸업하였습니다. 축하합니다. 학점 : %.2lf", player[i].avgscore);
+			}
 
-			sprintf(msg, "%.2lf로 졸업하였습니다. 축하합니다.", player[i].avgscore);
 			movehorse(i, 0);
 			refreshmessage(msg, PINK);
 			getchmacro(10);
+		}
+		if (i == 0 && player[i].loop >= 30) {
+			refreshmessage("교수님이 30바퀴를 돌파하여 게임을 종료합니다.");
+			getchmacro(10);
+			break;
 		}
 	}
 
