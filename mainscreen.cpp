@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <conio.h>
-#include <stdlib.h>
 #include "function.h"
+using namespace std;
 
 static int cursorpos;
 
@@ -13,25 +11,29 @@ void movecursor(int direction) {
 
 	int i;
 	for (i = 0; i < 4; i++) {
-		gotoxy(11, i * 2 + 8);
+		gotoxy(8, i * 2 + 4);
 		printf("  ");
 	}
 
-	gotoxy(11, cursorpos * 2 + 8);
+	gotoxy(8, cursorpos * 2 + 4);
 	printf("▶");
 }
 
 void printmenu() {
 	int i;
-	char menutitle[4][11] = { { "2 players" }, { "3 players" }, { "4 playes" }, { "exit" } };
+	char menutitle[5][21] = { "2 players", "3 players", "4 players", "exit", "\'학고\'대의 마블" };
 
 	for (i = 0; i < 4; i++) {
-		gotoxy(15, i * 2 + 8);
+		gotoxy(12, i * 2 + 4);
 		printf("%s", menutitle[i]);
 	}
+
+	gotoxy(12, 20);
+	printf("%s", menutitle[4]);
 }
 
 void mainscreen() {
+	system("mode con cols=50 lines=25");
 	system("cls");
 	cursorpos = 0;
 
@@ -64,11 +66,11 @@ void mainscreen() {
 				}
 				break;
 
-			// up arrow
+				// up arrow
 			case 72:
 				movecursor(-1);
 				break;
-			// down arrow
+				// down arrow
 			case 80:
 				movecursor(1);
 				break;

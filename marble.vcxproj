@@ -78,7 +78,10 @@
   <ItemGroup>
     <ClCompile Include="function.cpp" />
     <ClCompile Include="gamecore.cpp" />
+    <ClCompile Include="gameprocess.cpp" />
+    <ClCompile Include="gamescreen.cpp" />
     <ClCompile Include="mainscreen.cpp" />
+    <ClCompile Include="startscreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="function.h" />

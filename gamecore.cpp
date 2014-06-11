@@ -1,17 +1,20 @@
-#include <stdio.h>
-#include <conio.h>
-#include <stdlib.h>
 #include "function.h"
 
 int nPlayer;
 
 int main() {
-	system("mode con cols=150 lines=40");
+	srand(time(0));
 
+	setwindowposition();
 	hidecursor();
 	mainscreen();
 
-	system("cls");
-	printf("%d\n", nPlayer);
+	selectrandom();
+	printgamescreen();
+
+	gotoxy(0, 0);
+
+	play();
+
 	return 0;
 }
