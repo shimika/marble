@@ -682,7 +682,6 @@ void gameturn(int pl) {
 	getchmacro(' ');
 
 	num = ((rand() % 9) + 3) % 6 + 1;
-	num = 1;
 	printnumber(num);
 
 	Sleep(500);
