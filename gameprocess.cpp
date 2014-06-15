@@ -723,7 +723,8 @@ void play() {
 
 			if (player[i].avgscore <= 1.75) {
 				sprintf(msg, "학고를 받았습니다. 축하합니다.");
-				player[i].sorttag = 1000000 + (player[i].avgscore * 100) + loop;
+				//player[i].sorttag = 1000000 + (player[i].avgscore * 100) + loop;	// 점수까지 판단
+				player[i].sorttag = 1000000 + loop;									// 종료 시점으로 판단
 			}
 			else {
 				sprintf(msg, "졸업하였습니다. 축하합니다. 학점 : %.2lf", player[i].avgscore);

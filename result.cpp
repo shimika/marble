@@ -12,8 +12,8 @@ extern struct playerinfo player[5];
 	맨 앞자리는 종료 조건 T
 	1 : 학고로 인해 중퇴
 	2 : 정상적으로 졸업
-	3 : 교수 코드
-	4 : 교수가 퇴임할 때까지 졸업하지 못함
+	2 : 350000은 교수 코드 (3.50 기준)
+	3 : 교수가 퇴임할 때까지 졸업하지 못함
 
 	2~4자리의 숫자 3자리는 종료 시점의 학점
 	N.NN점을 NNN으로 수치 변환
@@ -36,7 +36,7 @@ void resultscreen() {
 	int i;
 	for (i = 0; i < nPlayer; i++) {
 		if (player[i].sorttag == 0) {
-			player[i].sorttag = 4000000 + (player[i].avgscore * 100);
+			player[i].sorttag = 3000000 + (player[i].avgscore * 100);
 		}
 	}
 
@@ -61,7 +61,7 @@ void resultscreen() {
 				case 2:
 					printf("졸업)");
 					break;
-				case 4:
+				case 3:
 					printf("재학 중)");
 					break;
 			}

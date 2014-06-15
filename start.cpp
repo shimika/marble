@@ -12,7 +12,7 @@ void selectrandom() {
 
 	// 교수는 플레이어 수 * 기초 급여를 지급
 	player[0].money = MONEY * nPlayer;
-	player[0].sorttag = 3000000;
+	player[0].sorttag = 2350000;
 
 	int i;
 	for (i = 1; i < nPlayer; i++) {
