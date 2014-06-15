@@ -30,10 +30,10 @@
     <ClCompile Include="gameprocess.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="startscreen.cpp">
+    <ClCompile Include="result.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="result.cpp">
+    <ClCompile Include="start.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

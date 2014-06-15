@@ -278,8 +278,7 @@ char goldmsg[21][64] = {
 // pl = 플레이어 아이디
 void goldenkey(int pl) {
 	int value = rand() % (goldcnt * 2);
-	char a[99];
-	sprintf(a, "%d (%d)", value, pl);
+	value = 3;
 
 	//MessageBoxA(NULL, a, "", 0);
 	if ((pl == 0 && value / goldcnt == 1) || (pl > 0 && value / goldcnt == 0)) {
@@ -309,10 +308,10 @@ void goldenkey(int pl) {
 			}
 			break;
 		case 3:
-			for (i = 1; nPlayer; i++) {
-				player[pl].tscore += 12;
-				player[pl].credit += 3;
-				player[pl].avgscore = player[pl].tscore / player[pl].credit;
+			for (i = 1; i < nPlayer; i++) {
+				player[i].tscore += 12;
+				player[i].credit += 3;
+				player[i].avgscore = player[i].tscore / player[i].credit;
 			}
 			break;
 		case 4:
@@ -423,16 +422,16 @@ void selectaction(int pl) {
 					value = moveoptioncursor(vc);
 					
 					if (value > 0) {
+						player[pl].money -= options[value];
+
 						switch (option) {
-							case 3:
-								value++;
-								break;
 							case 2:
 								value++;
 								break;
+							case 3:
+								value++;
+								break;
 						}
-
-						player[pl].money -= options[value];
 						mapstatus[xi] = value;
 						refreshmapstatus(xi, value);
 
@@ -593,7 +592,7 @@ void selectaction(int pl) {
 			}
 
 			if (pl == 0 || player[pl].money >= 0) {
-				vc.push_back("황금 열쇠 (가칭)");
+				vc.push_back("황금 열쇠");
 			}
 
 			option = moveoptioncursor(vc);

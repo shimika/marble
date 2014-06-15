@@ -73,4 +73,6 @@ void resultscreen() {
 	printf("===============  수고하셨습니다  ===============");
 
 	gotoxy(6, i * 2 + 8);
+
+	getch();
 }

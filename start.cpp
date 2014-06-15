@@ -21,8 +21,8 @@ void selectrandom() {
 
 		player[i].money = MONEY;
 
-		player[i].credit = 5;
-		player[i].tscore = 10;
+		player[i].credit = 6;
+		player[i].tscore = 21;
 		player[i].avgscore = player[i].tscore / player[i].credit;
 	}
 

@@ -19,7 +19,7 @@ void drawcell(int yi, int xi, char *name) {
 	0	: 특수 지형
 	1~3 : 각각 과목에 대한 학점 수
 	4	: 공강
-	5	: 황금 열쇠 (가칭)
+	5	: 황금 열쇠
 	6	: 휴식
 	7	: 셔틀
 */
@@ -84,8 +84,8 @@ void printgamescreen() {
 	}
 }
 
+// 맵 섞기
 void shuffle() {
-
 	// 미리 개설된 곳, 개설을 하지 못하는 곳 (각 3, 2개)
 
 	int shufflecount = rand() % 10 + 10;
