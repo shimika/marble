@@ -93,6 +93,9 @@ void refreshscore(int pl) {
 		if (i > 0) {
 			printf(", 이수 학점 %3d , GPA %.2lf , 세미나 완료%s", player[i].credit, player[i].avgscore, player[i].seminar ? "         " : "하지 않음");
 		}
+		else {
+			printf(", %d번 루프", player[i].loop);
+		}
 		settextcolor(15);
 	}
 }
@@ -278,7 +281,6 @@ char goldmsg[21][64] = {
 // pl = 플레이어 아이디
 void goldenkey(int pl) {
 	int value = rand() % (goldcnt * 2);
-	value = 3;
 
 	//MessageBoxA(NULL, a, "", 0);
 	if ((pl == 0 && value / goldcnt == 1) || (pl > 0 && value / goldcnt == 0)) {
@@ -426,7 +428,7 @@ void selectaction(int pl) {
 
 						switch (option) {
 							case 2:
-								value++;
+								value += 2;
 								break;
 							case 3:
 								value++;
@@ -680,6 +682,7 @@ void gameturn(int pl) {
 	getchmacro(' ');
 
 	num = ((rand() % 9) + 3) % 6 + 1;
+	num = 1;
 	printnumber(num);
 
 	Sleep(500);
