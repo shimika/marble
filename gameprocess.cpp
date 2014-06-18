@@ -295,7 +295,7 @@ void goldenkey(int pl) {
 			break;
 		case 1:
 			for (i = 1; i < nPlayer; i++) {
-				if (player[i].seminar == 2) {
+				if (player[i].seminar == 2 && player[i].sorttag == 0) {
 					player[i].seminar = 0;
 				}
 			}
