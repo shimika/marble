@@ -717,7 +717,7 @@ void play() {
 		refreshscore(i);
 		gameturn(i);
 
-		if (((player[i].credit >= MAXCREDIT  && player[i].seminar >= 0) || player[i].avgscore <= 1.75) && i > 0) {
+		if (((player[i].credit >= MAXCREDIT  && player[i].seminar > 0) || player[i].avgscore <= 1.75) && i > 0) {
 			playerstatus[i] *= -1;
 			live--;
 
